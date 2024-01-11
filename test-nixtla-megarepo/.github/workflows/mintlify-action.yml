@@ -1,0 +1,46 @@
+on:
+  push:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+  repository_dispatch: 
+      types: [docs_updated]
+
+jobs:
+  mintlify_job:
+    runs-on: ubuntu-latest
+    name: Run mintlify job
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v3
+      - name: Run mintlify github action
+        uses: mintlify/multirepo-action@v0.9
+        with:
+          token: ${{ secrets.PUSH_TOKEN }}
+          target-branch: docs
+          force: true
+          repos: |
+            - owner: nixtla
+              repo: nixtla
+              ref: docs
+            - owner: nixtla
+              repo: statsforecast
+              ref: docs
+            - owner: nixtla
+              repo: mlforecast
+              ref: docs
+            - owner: nixtla
+              repo: neuralforecast
+              ref: docs
+            - owner: nixtla
+              repo: hierarchicalforecast
+              ref: docs
+            - owner: nixtla
+              repo: utilsforecast
+              ref: docs
+            - owner: nixtla
+              repo: datasetsforecast
+              ref: docs
+            - owner: nixtla
+              repo: coreforecast
+              ref: docs
