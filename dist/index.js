@@ -58,7 +58,7 @@ try {
         const args = ['clone', '--depth=1'];
         if (ref)
             args.push('--branch', ref);
-        args.push(`https://github.com/${owner}/${repo}`);
+        args.push(`https://${token}@github.com/${owner}/${repo}.git`);
         await execOrThrow('git', args);
         if (subrepoSubdirectory) {
             const tempDirName = 'temporary-docs-dir';
